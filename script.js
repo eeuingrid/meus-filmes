@@ -78,3 +78,32 @@ fetch('https://api.themoviedb.org/3/movie/popular?language=en-US&page=1', {
         return `${day}/${month}/${year}`;
     }
 
+// Séries
+const containerSeries = document.getElementById('featuredSeries');
+if (containerSeries) {
+    fetch('https://api.themoviedb.org/3/tv/popular?language=en-US&page=1'), {
+        headers: {
+            accept: 'application/json',
+            Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI0OGU3MDFkYjNmNTUyZTBhNTFjMDlkNDMxMzdiZDI3MCIsIm5iZiI6MTY4ODczMDA1NC44NzgsInN1YiI6IjY0YTdmOWM2OTY1MjIwMDExZGYwOGU3MyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.YhX8YDb0OF8ovacEzdWjUTSWr0xZLaZOItyxsnzgVMI'
+        }
+    }
+
+    
+
+        .then(r => r.json())
+        .then(data => {
+            data.results.forEach(serie => {
+                containerSeries.innerHTML += `
+                <div class="col-6 col-sm-4 col-md-3 mb-4">
+                    <div class="movie-card">
+                        <img src="https://media.themoviedb.org/t/p/w440_and_h660_face/${serie.poster_path}"
+                            class="card-img-top" alt="${serie.name}">
+                        <div class="card-body movie-info">
+                            <div class="movie-title">${serie.name}</div>
+                            <div class="movie-date">${dataFormatada(serie.first_air_date)}</div>
+                        </div>
+                    </div>
+                </div>`;
+            });
+        });
+}
